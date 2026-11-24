@@ -1,0 +1,15 @@
+{
+  "schemaVersion": "1.0.0",
+  "threshold": 100,
+  "cases": [
+    { "id": "traceability", "path": "trace.status", "operator": "equals", "expected": "PASS" },
+    { "id": "trace-coverage", "path": "trace.coverage", "operator": "gte", "expected": 100 },
+    { "id": "workforce", "path": "workforce.status", "operator": "equals", "expected": "PASS" },
+    { "id": "adapters", "path": "adapters.status", "operator": "equals", "expected": "PASS" },
+    { "id": "trust", "path": "trust.status", "operator": "equals", "expected": "PASS" },
+    { "id": "sbom", "path": "sbom.sourceCount", "operator": "gte", "expected": 1 },
+    { "id": "provenance", "path": "provenance.status", "operator": "equals", "expected": "PASS" },
+    { "id": "ledger", "path": "ledger.status", "operator": "equals", "expected": "PASS" },
+    { "id": "delivery", "path": "delivery.status", "operator": "equals", "expected": "PASS" }
+  ]
+}

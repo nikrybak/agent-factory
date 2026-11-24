@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://software-factory.local/schema/adapter.schema.json",
+  "title": "Software factory adapter catalog",
+  "type": "object", "additionalProperties": false,
+  "required": ["schemaVersion", "adapters"],
+  "properties": {
+    "schemaVersion": { "enum": ["1.0.0", "1.1.0"] },
+    "adapters": { "type": "array", "minItems": 1 }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "schemaVersion": { "const": "1.0.0" } }, "required": ["schemaVersion"] },
+      "then": { "properties": { "adapters": { "items": { "$ref": "#/$defs/adapterV10" } } } }
+    },
+    {
+      "if": { "properties": { "schemaVersion": { "const": "1.1.0" } }, "required": ["schemaVersion"] },
+      "then": { "properties": { "adapters": { "items": { "$ref": "#/$defs/adapterV11" } } } }
+    }
+  ],
+  "$defs": {
+    "adapterV10": {
+        "type": "object", "additionalProperties": false,
+        "required": ["id", "family", "operations", "unsupported"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^[a-z][a-z0-9-]*$" },
+          "family": { "type": "string", "pattern": "^[a-z][a-z0-9-]*$" },
+          "operations": { "$ref": "#/$defs/operationsV10" },
+          "unsupported": { "$ref": "#/$defs/unsupported" }
+        }
+    },
+    "adapterV11": {
+        "type": "object", "additionalProperties": false,
+        "required": ["id", "family", "operations", "unsupported"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^[a-z][a-z0-9-]*$" },
+          "family": { "type": "string", "pattern": "^[a-z][a-z0-9-]*$" },
+          "operations": { "$ref": "#/$defs/operationsV11" },
+          "unsupported": { "$ref": "#/$defs/unsupported" }
+        }
+    },
+    "unsupported": { "type": "array", "uniqueItems": true, "items": { "enum": ["detect", "install", "lint", "typecheck", "test", "coverage", "build", "security", "package", "e2e", "deploy"] } },
+    "operationsV10": {
+      "type": "object", "minProperties": 1, "additionalProperties": false,
+      "properties": {
+        "detect": { "$ref": "#/$defs/operationV10" }, "install": { "$ref": "#/$defs/operationV10" },
+        "lint": { "$ref": "#/$defs/operationV10" }, "typecheck": { "$ref": "#/$defs/operationV10" },
+        "test": { "$ref": "#/$defs/operationV10" }, "coverage": { "$ref": "#/$defs/operationV10" },
+        "build": { "$ref": "#/$defs/operationV10" }, "security": { "$ref": "#/$defs/operationV10" },
+        "package": { "$ref": "#/$defs/operationV10" }, "e2e": { "$ref": "#/$defs/operationV10" },
+        "deploy": { "$ref": "#/$defs/operationV10" }
+      }
+    },
+    "operationsV11": {
+      "type": "object", "minProperties": 1, "additionalProperties": false,
+      "properties": {
+        "detect": { "$ref": "#/$defs/operationV11" }, "install": { "$ref": "#/$defs/operationV11" },
+        "lint": { "$ref": "#/$defs/operationV11" }, "typecheck": { "$ref": "#/$defs/operationV11" },
+        "test": { "$ref": "#/$defs/operationV11" }, "coverage": { "$ref": "#/$defs/operationV11" },
+        "build": { "$ref": "#/$defs/operationV11" }, "security": { "$ref": "#/$defs/operationV11" },
+        "package": { "$ref": "#/$defs/operationV11" }, "e2e": { "$ref": "#/$defs/operationV11" },
+        "deploy": { "$ref": "#/$defs/operationV11" }
+      }
+    },
+    "operationV10": {
+      "type": "object", "additionalProperties": false, "required": ["argv"],
+      "properties": {
+        "argv": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } },
+        "authority": { "enum": ["dependencyInstall", "deploy"] }
+      }
+    },
+    "operationV11": {
+      "type": "object", "additionalProperties": false,
+      "properties": {
+        "argv": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } },
+        "timeoutMs": { "$ref": "#/$defs/commandTimeoutMs" },
+        "commands": {
+          "type": "array", "minItems": 1,
+          "items": {
+            "type": "object", "additionalProperties": false, "required": ["id", "argv"],
+            "properties": {
+              "id": { "type": "string", "pattern": "^[a-z][a-z0-9-]*$" },
+              "argv": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } },
+              "timeoutMs": { "$ref": "#/$defs/commandTimeoutMs" }
+            }
+          }
+        },
+        "authority": { "enum": ["dependencyInstall", "deploy"] }
+      },
+      "oneOf": [
+        { "required": ["argv"], "not": { "required": ["commands"] } },
+        { "required": ["commands"], "not": { "anyOf": [{ "required": ["argv"] }, { "required": ["timeoutMs"] }] } }
+      ]
+    },
+    "commandTimeoutMs": { "type": "integer", "minimum": 1000, "maximum": 21600000 }
+  }
+}

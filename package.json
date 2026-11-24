@@ -1,0 +1,15 @@
+{
+  "name": "multi-ai-software-factory",
+  "version": "0.2.0",
+  "private": true,
+  "license": "UNLICENSED",
+  "type": "commonjs",
+  "bin": { "infra": "./cli/bin/infra.js" },
+  "scripts": {
+    "test": "node scripts/run_node_tests.js",
+    "test:factory": "node --test cli/test/factory-*.test.js",
+    "coverage": "node scripts/run_node_tests.js --coverage",
+    "quality": "python scripts/quality_gate.py",
+    "certify": "node cli/bin/infra.js certify --project . --json"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "name": "infra",
+  "version": "0.1.0",
+  "private": true,
+  "license": "UNLICENSED",
+  "type": "commonjs",
+  "bin": { "infra": "./bin/infra.js" },
+  "scripts": {
+    "test": "node ../scripts/run_node_tests.js",
+    "coverage": "node ../scripts/run_node_tests.js --coverage"
+  }
+}

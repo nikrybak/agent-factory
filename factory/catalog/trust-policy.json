@@ -1,0 +1,16 @@
+{
+  "schemaVersion": "1.0.0",
+  "defaultDecision": "deny",
+  "allowedRoots": ["."],
+  "provenance": {
+    "schemaVersion": "1.0.0",
+    "algorithm": "Ed25519",
+    "trustedKeys": []
+  },
+  "tiers": {
+    "untrusted": { "executables": [], "authorities": [], "network": { "mode": "none", "hosts": [] }, "maximumRisk": "low" },
+    "restricted": { "executables": ["node", "python", "python3", "php", "go", "cargo", "dotnet", "java", "ruby"], "authorities": ["read"], "network": { "mode": "none", "hosts": [] }, "maximumRisk": "medium" },
+    "verified": { "executables": ["node", "npm", "pnpm", "yarn", "python", "python3", "pip", "php", "composer", "go", "cargo", "dotnet", "java", "mvn", "gradle", "ruby", "bundle", "git"], "authorities": ["read", "write-local"], "network": { "mode": "allowlist", "hosts": ["registry.npmjs.org", "pypi.org", "files.pythonhosted.org", "repo.packagist.org", "proxy.golang.org", "crates.io", "api.nuget.org", "repo.maven.apache.org", "rubygems.org"] }, "maximumRisk": "high" },
+    "privileged": { "executables": ["node", "npm", "pnpm", "yarn", "python", "python3", "pip", "php", "composer", "go", "cargo", "dotnet", "java", "mvn", "gradle", "ruby", "bundle", "git", "docker", "kubectl", "terraform"], "authorities": ["read", "write-local", "network", "external-mutation"], "network": { "mode": "allowlist", "hosts": ["registry.npmjs.org", "pypi.org", "files.pythonhosted.org", "repo.packagist.org", "proxy.golang.org", "crates.io", "api.nuget.org", "repo.maven.apache.org", "rubygems.org"] }, "maximumRisk": "critical" }
+  }
+}

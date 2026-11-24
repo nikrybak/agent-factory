@@ -1,0 +1,128 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "includeCoAuthoredBy": false,
+  "fileCheckpointingEnabled": true,
+  "language": "ru",
+  "cleanupPeriodDays": 30,
+  "permissions": {
+    "allow": [
+      "Bash(git status)",
+      "Bash(git diff*)",
+      "Bash(git log*)",
+      "Bash(git branch*)",
+      "Bash(git push origin dev)",
+      "Bash(git push origin dev:dev)",
+      "Bash(npm test*)",
+      "Bash(npm run test*)",
+      "Bash(npm run lint*)",
+      "Bash(npm run build*)",
+      "Bash(npm run typecheck*)",
+      "Bash(npx playwright test*)",
+      "Bash(npx playwright install*)",
+      "Bash(python scripts/quality_gate.py*)",
+      "Bash(py scripts/quality_gate.py*)",
+      "Bash(composer test*)",
+      "Bash(vendor/bin/phpunit*)",
+      "Bash(pytest*)",
+      "Bash(ruff*)",
+      "Bash(mypy*)",
+      "Bash(go test*)",
+      "Bash(cargo test*)",
+      "Bash(mvn test*)",
+      "Bash(gradle test*)"
+    ],
+    "deny": [
+      "Bash(rm -rf *)",
+      "Bash(del /s /q *)",
+      "Bash(format *)",
+      "Bash(sudo rm*)",
+      "Bash(curl * | sh)",
+      "Bash(wget * | sh)",
+      "Bash(git*push*main*)",
+      "Bash(git*push*master*)",
+      "Bash(git*push*--tags*)",
+      "Bash(git*push*refs/tags*)",
+      "Bash(git*push*--force*)",
+      "Bash(git*push* -f*)",
+      "Bash(git*push*--delete*)",
+      "Bash(git*push* -d *)",
+      "Bash(git*push*--mirror*)",
+      "Bash(git*push*--all*)",
+      "Bash(git reset --hard*)",
+      "Bash(git clean -fd*)",
+      "Bash(gh pr merge*)",
+      "Bash(npm publish*)",
+      "Read(**/.secrets/**)",
+      "Edit(**/.secrets/**)",
+      "Write(**/.secrets/**)",
+      "Read(~/.gradle/gradle.properties)",
+      "Edit(~/.gradle/gradle.properties)",
+      "Read(**/*.jks)",
+      "Read(**/*.keystore)",
+      "Read(**/*.p12)",
+      "Read(**/*.pfx)",
+      "Read(**/.env)",
+      "Edit(**/.env)",
+      "Read(**/.git-credentials)",
+      "Read(**/.netrc)",
+      "Read(**/keystore.properties)",
+      "Read(**/signing.properties)",
+      "Read(~/.ssh/id_*)",
+      "Read(~/.config/gh/hosts.yml)"
+    ]
+  },
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node -e \"process.chdir(process.env.CLAUDE_PROJECT_DIR||'.');process.exitCode=require(process.cwd()+'/.claude/hooks/dispatch.js').main('prompt')\""
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node -e \"process.chdir(process.env.CLAUDE_PROJECT_DIR||'.');process.exitCode=require(process.cwd()+'/.claude/hooks/dispatch.js').main('pre')\""
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node -e \"process.chdir(process.env.CLAUDE_PROJECT_DIR||'.');process.exitCode=require(process.cwd()+'/.claude/hooks/dispatch.js').main('post')\""
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node -e \"process.chdir(process.env.CLAUDE_PROJECT_DIR||'.');process.exitCode=require(process.cwd()+'/.claude/hooks/dispatch.js').main('stop')\""
+          }
+        ]
+      }
+    ],
+    "TaskCompleted": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node -e \"process.chdir(process.env.CLAUDE_PROJECT_DIR||'.');process.exitCode=require(process.cwd()+'/.claude/hooks/dispatch.js').main('task')\""
+          }
+        ]
+      }
+    ]
+  }
+}

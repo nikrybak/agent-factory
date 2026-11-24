@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://software-factory.local/schema/stack-signal.schema.json",
+  "title": "Software factory stack-signal catalog",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "signals"],
+  "properties": {
+    "$schema": { "type": "string", "minLength": 1 },
+    "schemaVersion": { "enum": ["1.0.0", "1.1.0"] },
+    "signals": { "type": "array", "minItems": 1 }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "schemaVersion": { "const": "1.0.0" } }, "required": ["schemaVersion"] },
+      "then": { "properties": { "signals": { "items": { "$ref": "#/$defs/signalV10" } } } }
+    },
+    {
+      "if": { "properties": { "schemaVersion": { "const": "1.1.0" } }, "required": ["schemaVersion"] },
+      "then": { "properties": { "signals": { "items": { "$ref": "#/$defs/signalV11" } } } }
+    }
+  ],
+  "$defs": {
+    "family": { "type": "string", "pattern": "^[a-z][a-z0-9-]*$" },
+    "files": {
+      "type": "array", "minItems": 1, "uniqueItems": true,
+      "items": { "type": "string", "minLength": 1, "pattern": "^[^/\\\\\\r\\n\\u0000]+$" }
+    },
+    "extensions": {
+      "type": "array", "minItems": 1, "uniqueItems": true,
+      "items": { "type": "string", "pattern": "^\\.[A-Za-z0-9._+-]+$" }
+    },
+    "capabilities": {
+      "type": "array", "uniqueItems": true, "items": { "$ref": "#/$defs/family" }
+    },
+    "signalV10": {
+      "type": "object", "additionalProperties": false,
+      "required": ["family", "confidence"],
+      "properties": {
+        "family": { "$ref": "#/$defs/family" },
+        "files": { "$ref": "#/$defs/files" },
+        "extensions": { "$ref": "#/$defs/extensions" },
+        "confidence": { "type": "number", "exclusiveMinimum": 0, "maximum": 1 },
+        "capabilities": { "$ref": "#/$defs/capabilities" }
+      },
+      "anyOf": [{ "required": ["files"] }, { "required": ["extensions"] }]
+    },
+    "signalV11": {
+      "type": "object", "additionalProperties": false,
+      "required": ["family", "confidence"],
+      "properties": {
+        "family": { "$ref": "#/$defs/family" },
+        "files": { "$ref": "#/$defs/files" },
+        "extensions": { "$ref": "#/$defs/extensions" },
+        "confidence": { "type": "number", "exclusiveMinimum": 0, "maximum": 1 },
+        "capabilities": { "$ref": "#/$defs/capabilities" },
+        "markerRole": { "enum": ["component", "build-root", "module"] },
+        "ownsModuleFamilies": { "$ref": "#/$defs/capabilities" }
+      },
+      "allOf": [
+        { "anyOf": [{ "required": ["files"] }, { "required": ["extensions"] }] },
+        {
+          "if": { "properties": { "markerRole": { "const": "module" } }, "required": ["markerRole"] },
+          "then": { "not": { "required": ["ownsModuleFamilies"] } }
+        }
+      ]
+    }
+  }
+}

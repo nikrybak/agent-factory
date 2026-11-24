@@ -1,0 +1,13 @@
+{
+  "schemaVersion": "1.0.0",
+  "profiles": {
+    "web": { "minimumRisk": "medium", "capabilities": ["browser"], "requiredGates": ["build", "browser-e2e", "accessibility", "security"] },
+    "api": { "minimumRisk": "medium", "capabilities": ["api"], "requiredGates": ["api-contract", "integration", "security"] },
+    "cli": { "minimumRisk": "low", "capabilities": ["command-line"], "requiredGates": ["cli-contract", "package", "security"] },
+    "library": { "minimumRisk": "low", "capabilities": ["library"], "requiredGates": ["public-api", "compatibility", "package", "security"] },
+    "data-ml": { "minimumRisk": "high", "capabilities": ["data", "model"], "requiredGates": ["data-quality", "reproducibility", "model-eval", "security"] },
+    "mobile": { "minimumRisk": "medium", "capabilities": ["device"], "requiredGates": ["device-e2e", "accessibility", "package", "security"] },
+    "embedded": { "minimumRisk": "high", "capabilities": ["hardware"], "requiredGates": ["toolchain", "safety", "hardware-evidence", "security"] },
+    "infrastructure": { "minimumRisk": "high", "capabilities": ["infrastructure"], "requiredGates": ["static-analysis", "plan", "drift", "rollback", "security"] }
+  }
+}

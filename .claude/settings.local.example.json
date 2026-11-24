@@ -1,0 +1,7 @@
+{
+  "env": {
+    "SENTRY_AUTH_TOKEN": "put-local-secret-here-not-in-git",
+    "QUALITY_GATE_STRICT": "1",
+    "QUALITY_GATE_COVERAGE": "100"
+  }
+}

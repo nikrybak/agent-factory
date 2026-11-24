@@ -1,0 +1,40 @@
+{
+  "hints": [
+    {
+      "keys": ["архитект", "architecture", "module", "модуль", "api", "database", "db"],
+      "message": "ROUTING HINT: This likely needs `/app-arch-required` and an ADR check."
+    },
+    {
+      "keys": [
+        "атак", "attack", "чит", "cheat", "античит", "anti-cheat", "anti-tamper", "антитампер", "тампер",
+        "взлом", "эксплойт", "exploit", "red team", "red-team", "nrg shield", "nrg-shield", "nrg-attest",
+        "frida", "xposed", "lsposed", "owasp masvs", "проверка безопасн", "проверить безопасн",
+        "безопасность прилож", "безопасность игр", "игра безопасн", "приложение безопасн"
+      ],
+      "message": "ROUTING HINT: To verify an app/game against attacks or run the security check, use the nrg-shield-red-team skill (runner: app_entry_root/packages/nrg-shield/tools/attack-battery.sh, table: app_entry_root/packages/nrg-shield/docs/SECURITY-CHECK.md)."
+    },
+    {
+      "keys": [
+        "размер прилож", "размер игр", "размер загруз", "размер сборк", "размер apk", "размер aab", "вес прилож", "вес игр",
+        "вес сборк", "сколько весит", "сколько мб", "app size", "apk size", "aab size", "download size", "install size",
+        "bundle size", "bundletool"
+      ],
+      "message": "ROUTING HINT: To measure an app size (download per phone, bundle, APK parts, budget), use the app-size skill (runner: node scripts/app-size.js --project <android project> --variant <variant> [--build] [--warn MB --max MB])."
+    },
+    {
+      "keys": [
+        "play games on pc", "play games pc", "для пк", "на пк", "пк верси", "пк-верси", "pc version", "pc build",
+        "pc track", "playable label", "optimized label", "untested", "метка сборки", "с оптимизацией",
+        "не протестировано", "input sdk", "hpe_experience", "developer emulator", "эмулятор пк", "бейдж пк"
+      ],
+      "message": "ROUTING HINT: For anything Google Play Games on PC (PC build, release, labels Playable/Optimized, PC store card, developer emulator, label form) use the play-games-pc skill: every Google requirement item by item (required AND recommended), check the MERGED manifest of the shipped build, release first, then the form with both package fields."
+    },
+    {
+      "keys": [
+        "скрин", "скриншот", "кадр", "снять экран", "снимки экран", "переснять", "пересним", "витрин", "screenshot", "screen shot",
+        "frames", "store frames", "capture.py", "capture run"
+      ],
+      "message": "ROUTING HINT: For screenshots/frames use the app-screenshots skill: build `assemblePlayCapture` (non-debuggable, AOT on install), `tools/device.py install`, then `tools/capture.py` (default in-app grab, ~0.5 s/frame); retake only wrong frames with --force --why, read the lint and every frame, parity gate for engine changes."
+    }
+  ]
+}

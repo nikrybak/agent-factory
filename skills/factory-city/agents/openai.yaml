@@ -1,0 +1,4 @@
+interface:
+  display_name: "Factory City"
+  short_description: "Certify and operate the complete software factory"
+  default_prompt: "Use Factory City to inspect, route, verify, and certify this project without hiding capability gaps."

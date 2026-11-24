@@ -1,0 +1,29 @@
+{
+  "schemaVersion": "1.0.0",
+  "signals": [
+    { "family": "node", "files": ["package.json"], "confidence": 0.7 },
+    { "family": "node", "files": ["package-lock.json", "npm-shrinkwrap.json", "pnpm-lock.yaml", "yarn.lock", "bun.lock", "bun.lockb"], "confidence": 0.25 },
+    { "family": "python", "files": ["pyproject.toml", "requirements.txt", "setup.py", "Pipfile", "poetry.lock", "uv.lock"], "confidence": 0.7 },
+    { "family": "php", "files": ["composer.json", "composer.lock"], "confidence": 0.75 },
+    { "family": "go", "files": ["go.mod", "go.work"], "confidence": 0.8 },
+    { "family": "rust", "files": ["Cargo.toml", "Cargo.lock"], "confidence": 0.8 },
+    { "family": "java", "files": ["pom.xml", "build.gradle", "build.gradle.kts", "settings.gradle", "settings.gradle.kts"], "confidence": 0.75 },
+    { "family": "dotnet", "extensions": [".sln", ".csproj", ".fsproj"], "confidence": 0.8 },
+    { "family": "ruby", "files": ["Gemfile", "Gemfile.lock", "gemspec"], "confidence": 0.7 },
+    { "family": "swift", "files": ["Package.swift"], "confidence": 0.8 },
+    { "family": "dart", "files": ["pubspec.yaml", "pubspec.lock"], "confidence": 0.75 },
+    { "family": "unity", "files": ["ProjectVersion.txt"], "confidence": 0.95, "capabilities": ["game-engine"] },
+    { "family": "container", "files": ["Dockerfile", "compose.yaml", "compose.yml", "docker-compose.yaml", "docker-compose.yml"], "confidence": 0.65, "capabilities": ["infrastructure"] },
+    { "family": "cpp", "files": ["CMakeLists.txt", "meson.build", "conanfile.py", "vcpkg.json"], "extensions": [".vcxproj"], "confidence": 0.75 },
+    { "family": "elixir", "files": ["mix.exs", "mix.lock"], "confidence": 0.8 },
+    { "family": "erlang", "files": ["rebar.config", "rebar.lock"], "confidence": 0.8 },
+    { "family": "haskell", "files": ["stack.yaml", "cabal.project"], "extensions": [".cabal"], "confidence": 0.75 },
+    { "family": "scala", "files": ["build.sbt"], "confidence": 0.8 },
+    { "family": "lua", "files": ["rockspec"], "extensions": [".rockspec"], "confidence": 0.65 },
+    { "family": "r", "files": ["DESCRIPTION", "renv.lock"], "confidence": 0.65 },
+    { "family": "terraform", "files": [".terraform.lock.hcl"], "extensions": [".tf"], "confidence": 0.8, "capabilities": ["infrastructure"] },
+    { "family": "kubernetes", "files": ["Chart.yaml", "kustomization.yaml", "kustomization.yml"], "confidence": 0.7, "capabilities": ["infrastructure"] },
+    { "family": "ansible", "files": ["ansible.cfg", "requirements.yml"], "confidence": 0.7, "capabilities": ["infrastructure"] },
+    { "family": "ci", "files": ["Jenkinsfile", ".gitlab-ci.yml", "azure-pipelines.yml"], "confidence": 0.6, "capabilities": ["automation"] }
+  ]
+}

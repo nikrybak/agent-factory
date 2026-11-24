@@ -1,0 +1,25 @@
+{
+  "schemaVersion": "1.0.0",
+  "steps": [
+    { "id": "intake", "needs": [], "gate": null, "evidenceProvider": "manifest-intake" },
+    { "id": "plan", "needs": ["intake"], "gate": null, "evidenceProvider": "bound-plan" },
+    { "id": "architecture", "needs": ["plan"], "gate": "architecture", "evidenceProvider": "architecture-lineage" },
+    { "id": "implementation", "needs": ["architecture"], "gate": null, "evidenceProvider": "implementation-lineage" },
+    { "id": "test-contract", "needs": ["implementation"], "gate": null, "evidenceProvider": "test-contract-lineage" },
+    { "id": "tests", "needs": ["test-contract"], "gate": null, "evidenceProvider": "adapter-tests" },
+    { "id": "browser-e2e", "needs": ["tests"], "gate": "browser-e2e", "evidenceProvider": "adapter-browser-e2e" },
+    { "id": "api-contract", "needs": ["tests"], "gate": "api-contract", "evidenceProvider": "api-contract-lineage" },
+    { "id": "traceability", "needs": ["tests"], "gate": null, "evidenceProvider": "traceability" },
+    { "id": "workforce", "needs": ["traceability"], "gate": null, "evidenceProvider": "workforce" },
+    { "id": "adapters", "needs": ["workforce"], "gate": null, "evidenceProvider": "adapter-selection" },
+    { "id": "trust", "needs": ["adapters"], "gate": null, "evidenceProvider": "trust" },
+    { "id": "supply-chain", "needs": ["trust"], "gate": null, "evidenceProvider": "supply-chain" },
+    { "id": "evals", "needs": ["supply-chain"], "gate": null, "evidenceProvider": "candidate-eval" },
+    { "id": "observability", "needs": ["evals"], "gate": null, "evidenceProvider": "candidate-observation" },
+    { "id": "security", "needs": ["tests", "trust"], "gate": "security", "evidenceProvider": "adapter-security" },
+    { "id": "docs", "needs": ["browser-e2e", "api-contract", "security", "observability"], "gate": null, "evidenceProvider": "docs-parity" },
+    { "id": "city-certification", "needs": ["docs"], "gate": null, "evidenceProvider": "city-certification" },
+    { "id": "quality", "needs": ["city-certification"], "gate": null, "evidenceProvider": "quality" },
+    { "id": "release-checkpoint", "needs": ["quality"], "gate": null, "evidenceProvider": "release-checkpoint" }
+  ]
+}

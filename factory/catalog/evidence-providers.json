@@ -1,0 +1,26 @@
+{
+  "$schema": "../schema/evidence-provider.schema.json",
+  "schemaVersion": "1.0.0",
+  "providers": [
+    { "id": "manifest-intake", "kind": "builtin", "operation": "manifest-intent" },
+    { "id": "bound-plan", "kind": "builtin", "operation": "plan-binding-integrity" },
+    { "id": "architecture-lineage", "kind": "builtin", "operation": "architecture-lineage" },
+    { "id": "implementation-lineage", "kind": "builtin", "operation": "implementation-lineage" },
+    { "id": "test-contract-lineage", "kind": "builtin", "operation": "test-contract-lineage" },
+    { "id": "adapter-tests", "kind": "composite", "operations": ["test", "coverage"] },
+    { "id": "adapter-browser-e2e", "kind": "composite", "operations": ["e2e"] },
+    { "id": "api-contract-lineage", "kind": "builtin", "operation": "api-contract-lineage" },
+    { "id": "traceability", "kind": "builtin", "operation": "traceability" },
+    { "id": "workforce", "kind": "builtin", "operation": "workforce" },
+    { "id": "adapter-selection", "kind": "builtin", "operation": "adapter-selection" },
+    { "id": "trust", "kind": "builtin", "operation": "trust" },
+    { "id": "supply-chain", "kind": "builtin", "operation": "supply-chain" },
+    { "id": "candidate-eval", "kind": "builtin", "operation": "candidate-eval" },
+    { "id": "candidate-observation", "kind": "builtin", "operation": "candidate-observation" },
+    { "id": "adapter-security", "kind": "composite", "operation": "security", "operations": ["security"] },
+    { "id": "docs-parity", "kind": "builtin", "operation": "docs-parity" },
+    { "id": "city-certification", "kind": "builtin", "operation": "city-certification" },
+    { "id": "quality", "kind": "builtin", "operation": "quality" },
+    { "id": "release-checkpoint", "kind": "builtin", "operation": "release-prepare" }
+  ]
+}

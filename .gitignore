@@ -1,0 +1,51 @@
+# Claude local/private state
+.claude/settings.local.json
+.claude/state/
+
+# Secrets
+.env
+.env.*
+!.env.example
+# Local agent/MCP secret overrides (never commit). agents.local.example.json
+# ends in .example.json so it stays tracked; agents.local.json is ignored.
+*.local.json
+# GEN-2: generated local TOML with secrets (e.g. .codex/config.local.toml)
+*.local.toml
+config.local.toml
+
+# Dependencies
+node_modules/
+vendor/
+.venv/
+
+# Test/coverage artifacts
+coverage/
+playwright-report/
+test-results/
+.pytest_cache/
+
+# Python
+__pycache__/
+*.pyc
+
+# IDE
+.idea/
+
+# Local agent/browser tool dumps
+.playwright-mcp/
+.superpowers/
+
+# OS
+.DS_Store
+Thumbs.db
+._*
+__MACOSX/
+
+# Generated skill mirrors (canon is skills/)
+.claude/skills/
+.agents/skills/
+
+# Local software-factory checkpoints and evidence
+.factory/
+
+.cursor/

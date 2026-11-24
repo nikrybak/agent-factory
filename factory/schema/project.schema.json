@@ -1,0 +1,316 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:software-factory:project:1.1.0",
+  "title": "Software factory project manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "project",
+    "profiles",
+    "sources",
+    "stack",
+    "risk",
+    "capabilities",
+    "authority",
+    "quality"
+  ],
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "schemaVersion": {
+      "enum": [
+        "1.0.0",
+        "1.1.0"
+      ]
+    },
+    "project": {
+      "$ref": "#/$defs/project"
+    },
+    "profiles": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z][a-z0-9-]{1,62}$"
+      }
+    },
+    "sources": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/source"
+      }
+    },
+    "stack": {
+      "$ref": "#/$defs/stack"
+    },
+    "risk": {
+      "$ref": "#/$defs/risk"
+    },
+    "capabilities": {
+      "$ref": "#/$defs/capabilities"
+    },
+    "authority": {
+      "$ref": "#/$defs/authority"
+    },
+    "quality": {
+      "$ref": "#/$defs/quality"
+    }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "schemaVersion": { "const": "1.0.0" } }, "required": ["schemaVersion"] },
+      "then": { "properties": { "stack": { "properties": { "declared": { "items": { "$ref": "#/$defs/stackDeclarationV10" } } } } } }
+    },
+    {
+      "if": { "properties": { "schemaVersion": { "const": "1.1.0" } }, "required": ["schemaVersion"] },
+      "then": { "properties": { "stack": { "properties": { "declared": { "items": { "$ref": "#/$defs/stackDeclarationV11" } } } } } }
+    }
+  ],
+  "$defs": {
+    "project": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "name",
+        "intent",
+        "repositoryRoot"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9-]{1,62}$"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "intent": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000
+        },
+        "repositoryRoot": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "kind",
+        "location",
+        "required"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9-]{1,62}$"
+        },
+        "kind": {
+          "enum": [
+            "local",
+            "git",
+            "archive",
+            "remote",
+            "docs",
+            "api",
+            "design"
+          ]
+        },
+        "location": {
+          "type": "string",
+          "minLength": 1
+        },
+        "required": {
+          "type": "boolean"
+        }
+      }
+    },
+    "stack": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mode",
+        "declared"
+      ],
+      "properties": {
+        "mode": {
+          "enum": [
+            "detect",
+            "declared",
+            "mixed"
+          ]
+        },
+        "declared": {
+          "type": "array"
+        }
+      }
+    },
+    "stackDeclarationV10": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "family"
+      ],
+      "properties": {
+        "family": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9-]{1,62}$"
+        },
+        "runtime": {
+          "type": "string",
+          "minLength": 1
+        },
+        "packageManager": {
+          "type": "string",
+          "minLength": 1
+        },
+        "root": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "stackDeclarationV11": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "family", "adapterId", "root"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^[a-z][a-z0-9-]{1,62}$" },
+        "family": { "type": "string", "pattern": "^[a-z][a-z0-9-]{1,62}$" },
+        "adapterId": { "type": "string", "pattern": "^[a-z][a-z0-9-]{1,62}$" },
+        "runtime": { "type": "string", "minLength": 1 },
+        "packageManager": { "type": "string", "minLength": 1 },
+        "root": { "type": "string", "minLength": 1 }
+      }
+    },
+    "risk": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "class",
+        "dataSensitivity",
+        "internetExposure",
+        "regulated"
+      ],
+      "properties": {
+        "class": {
+          "enum": [
+            "low",
+            "medium",
+            "high",
+            "critical"
+          ]
+        },
+        "dataSensitivity": {
+          "enum": [
+            "public",
+            "internal",
+            "confidential",
+            "restricted"
+          ]
+        },
+        "internetExposure": {
+          "type": "boolean"
+        },
+        "regulated": {
+          "type": "boolean"
+        }
+      }
+    },
+    "capabilities": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "required",
+        "optional"
+      ],
+      "properties": {
+        "required": {
+          "$ref": "#/$defs/stringSet"
+        },
+        "optional": {
+          "$ref": "#/$defs/stringSet"
+        }
+      }
+    },
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "destructive",
+        "dependencyInstall",
+        "schemaMigration",
+        "publicApiChange",
+        "networkWrite",
+        "publish",
+        "deploy",
+        "release"
+      ],
+      "properties": {
+        "destructive": {
+          "type": "boolean"
+        },
+        "dependencyInstall": {
+          "type": "boolean"
+        },
+        "schemaMigration": {
+          "type": "boolean"
+        },
+        "publicApiChange": {
+          "type": "boolean"
+        },
+        "networkWrite": {
+          "type": "boolean"
+        },
+        "publish": {
+          "type": "boolean"
+        },
+        "deploy": {
+          "type": "boolean"
+        },
+        "release": {
+          "type": "boolean"
+        }
+      }
+    },
+    "quality": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "changedCoverage",
+        "requiredGates",
+        "additionalChecks"
+      ],
+      "properties": {
+        "changedCoverage": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "requiredGates": {
+          "$ref": "#/$defs/stringSet"
+        },
+        "additionalChecks": {
+          "$ref": "#/$defs/stringSet"
+        }
+      }
+    },
+    "stringSet": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z][a-z0-9-]{1,62}$"
+      }
+    }
+  }
+}

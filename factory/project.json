@@ -1,0 +1,54 @@
+{
+  "$schema": "./schema/project.schema.json",
+  "schemaVersion": "1.0.0",
+  "project": {
+    "id": "vc-enterprise-it-infra",
+    "name": "vc_enterprise_it_infra",
+    "intent": "Build and govern production software across stacks with executable evidence",
+    "repositoryRoot": "."
+  },
+  "profiles": [
+    "cli"
+  ],
+  "sources": [
+    {
+      "id": "code",
+      "kind": "local",
+      "location": ".",
+      "required": true
+    }
+  ],
+  "stack": {
+    "mode": "detect",
+    "declared": []
+  },
+  "risk": {
+    "class": "high",
+    "dataSensitivity": "internal",
+    "internetExposure": false,
+    "regulated": false
+  },
+  "capabilities": {
+    "required": [
+      "command-line"
+    ],
+    "optional": []
+  },
+  "authority": {
+    "destructive": false,
+    "dependencyInstall": false,
+    "schemaMigration": false,
+    "publicApiChange": false,
+    "networkWrite": false,
+    "publish": false,
+    "deploy": false,
+    "release": false
+  },
+  "quality": {
+    "changedCoverage": 80,
+    "requiredGates": [
+      "security"
+    ],
+    "additionalChecks": []
+  }
+}

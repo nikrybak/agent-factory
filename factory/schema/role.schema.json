@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://software-factory.local/schema/role.schema.json",
+  "title": "Software factory role catalog",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "roles"],
+  "properties": {
+    "schemaVersion": { "const": "1.0.0" },
+    "roles": {
+      "type": "array", "minItems": 24,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["id", "label", "capabilities", "authority", "requiredContext", "deliverables", "handoff", "evidence", "conflictsWith"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^[a-z][a-z0-9-]*$" },
+          "label": { "type": "string", "minLength": 1 },
+          "capabilities": { "$ref": "#/$defs/nonEmptyStrings" },
+          "authority": {
+            "type": "object", "additionalProperties": false, "required": ["actions"],
+            "properties": { "actions": { "$ref": "#/$defs/nonEmptyStrings" } }
+          },
+          "requiredContext": { "$ref": "#/$defs/nonEmptyStrings" },
+          "deliverables": { "$ref": "#/$defs/nonEmptyStrings" },
+          "handoff": { "$ref": "#/$defs/nonEmptyStrings" },
+          "evidence": { "$ref": "#/$defs/nonEmptyStrings" },
+          "conflictsWith": { "type": "array", "uniqueItems": true, "items": { "type": "string", "pattern": "^[a-z][a-z0-9-]*$" } }
+        }
+      }
+    }
+  },
+  "$defs": { "nonEmptyStrings": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "type": "string", "minLength": 1 } } }
+}
